@@ -3,6 +3,7 @@ import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { ModulesOverview } from "@/components/ModulesOverview";
 import { HardwareSetup } from "@/components/HardwareSetup";
+import { MonitorMode, NetworkDiscovery, WPACracking, DeauthAttacks, EvilTwin, WPSAttacks } from "@/components/modules";
 import { ReportingSection } from "@/components/ReportingSection";
 
 const Index = () => {
@@ -11,6 +12,12 @@ const Index = () => {
 
   const modulesRef = useRef<HTMLDivElement>(null);
   const hardwareRef = useRef<HTMLDivElement>(null);
+  const monitorRef = useRef<HTMLDivElement>(null);
+  const discoveryRef = useRef<HTMLDivElement>(null);
+  const wpaRef = useRef<HTMLDivElement>(null);
+  const deauthRef = useRef<HTMLDivElement>(null);
+  const evilTwinRef = useRef<HTMLDivElement>(null);
+  const wpsRef = useRef<HTMLDivElement>(null);
   const reportingRef = useRef<HTMLDivElement>(null);
 
   const handleNavigate = (section: string) => {
@@ -39,11 +46,18 @@ const Index = () => {
   const handleModuleClick = (moduleId: string) => {
     setCurrentModule(moduleId);
     
-    if (moduleId === "hardware-setup") {
-      hardwareRef.current?.scrollIntoView({ behavior: "smooth" });
-    } else if (moduleId === "reporting") {
-      reportingRef.current?.scrollIntoView({ behavior: "smooth" });
-    }
+    const moduleRefs: Record<string, React.RefObject<HTMLDivElement>> = {
+      "hardware-setup": hardwareRef,
+      "monitor-mode": monitorRef,
+      "network-discovery": discoveryRef,
+      "wpa-cracking": wpaRef,
+      "deauth-attacks": deauthRef,
+      "evil-twin": evilTwinRef,
+      "wps-attacks": wpsRef,
+      "reporting": reportingRef,
+    };
+
+    moduleRefs[moduleId]?.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleGetStarted = () => {
@@ -66,6 +80,30 @@ const Index = () => {
         
         <div ref={hardwareRef}>
           <HardwareSetup />
+        </div>
+
+        <div ref={monitorRef}>
+          <MonitorMode />
+        </div>
+
+        <div ref={discoveryRef}>
+          <NetworkDiscovery />
+        </div>
+
+        <div ref={wpaRef}>
+          <WPACracking />
+        </div>
+
+        <div ref={deauthRef}>
+          <DeauthAttacks />
+        </div>
+
+        <div ref={evilTwinRef}>
+          <EvilTwin />
+        </div>
+
+        <div ref={wpsRef}>
+          <WPSAttacks />
         </div>
         
         <div ref={reportingRef}>
