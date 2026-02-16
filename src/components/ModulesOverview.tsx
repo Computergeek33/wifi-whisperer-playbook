@@ -1,6 +1,6 @@
 import { 
   Cpu, Radio, Search, Key, Zap, Shield, FileText, Network,
-  Radar, Hammer, Bot, Skull, Lock, ArrowLeftRight, Server, Trophy
+  Radar, Hammer, Bot, Skull, Lock, ArrowLeftRight, Server, Trophy, Map
 } from "lucide-react";
 import { ModuleCard } from "./ModuleCard";
 
@@ -27,6 +27,7 @@ export const ModulesOverview = ({ onModuleClick, currentModule }: ModulesOvervie
     { id: "mitm-attacks", number: "14", title: "MITM & Network Attacks", description: "Ettercap, Bettercap, DHCP Starvation, ARP spoofing", duration: "2 hr", status: "available" as const, icon: <ArrowLeftRight className="w-6 h-6" /> },
     { id: "post-exploitation", number: "15", title: "Post-Exploitation & Firmware", description: "Router firmware CVEs, WiFi password extraction from machines", duration: "2 hr", status: "available" as const, icon: <Server className="w-6 h-6" /> },
     { id: "skills-assessment", number: "16", title: "Skills Assessment", description: "Real-world scenarios to test all learned techniques", duration: "4-8 hr", status: "available" as const, icon: <Trophy className="w-6 h-6" /> },
+    { id: "full-engagement", number: "17", title: "Full Engagement Workflow", description: "All commands in chronological order — a complete pentest from recon to report", duration: "3 hr", status: "available" as const, icon: <Map className="w-6 h-6" /> },
   ];
 
   return (
