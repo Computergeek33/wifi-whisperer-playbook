@@ -12,3 +12,4 @@ export { AdvancedCracking } from './AdvancedCracking';
 export { MITMAttacks } from './MITMAttacks';
 export { PostExploitation } from './PostExploitation';
 export { SkillsAssessment } from './SkillsAssessment';
+export { FullEngagement } from './FullEngagement';

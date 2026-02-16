@@ -8,7 +8,7 @@ import { HardwareSetup } from "@/components/HardwareSetup";
 import { 
   MonitorMode, NetworkDiscovery, WPACracking, DeauthAttacks, EvilTwin, WPSAttacks,
   AdvancedRecon, OnlineBruteForce, AutomatedFrameworks, AdvancedEvilTwin,
-  AdvancedCracking, MITMAttacks, PostExploitation, SkillsAssessment
+  AdvancedCracking, MITMAttacks, PostExploitation, SkillsAssessment, FullEngagement
 } from "@/components/modules";
 import { ReportingSection } from "@/components/ReportingSection";
 
@@ -29,6 +29,7 @@ const moduleComponents: Record<string, React.ReactNode> = {
   "mitm-attacks": <MITMAttacks />,
   "post-exploitation": <PostExploitation />,
   "skills-assessment": <SkillsAssessment />,
+  "full-engagement": <FullEngagement />,
 };
 
 const Index = () => {
