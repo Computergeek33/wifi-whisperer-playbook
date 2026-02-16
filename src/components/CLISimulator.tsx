@@ -52,7 +52,7 @@ export const CLISimulator = ({ title, scenarioDescription, steps, onComplete }: 
       { type: "info", text: "" },
       { type: "info", text: `─── Step 1/${steps.length}: ${steps[0]?.scenario || ""} ───` },
       { type: "info", text: "" },
-      { type: "scenario", text: steps[0]?.prompt || "" },
+      { type: "scenario", text: `🎯 ${steps[0]?.prompt || ""}` },
       { type: "info", text: "" },
     ]);
   }, []);
@@ -109,7 +109,7 @@ export const CLISimulator = ({ title, scenarioDescription, steps, onComplete }: 
         { type: "info", text: "" },
         { type: "info", text: `─── Step ${nextIndex + 1}/${steps.length}: ${nextStep.scenario} ───` },
         { type: "info", text: "" },
-        { type: "scenario", text: nextStep.prompt },
+        { type: "scenario", text: `🎯 ${nextStep.prompt}` },
         { type: "info", text: "" },
       ]);
     }
@@ -204,7 +204,7 @@ export const CLISimulator = ({ title, scenarioDescription, steps, onComplete }: 
       { type: "info", text: "" },
       { type: "info", text: `─── Step 1/${steps.length}: ${steps[0]?.scenario || ""} ───` },
       { type: "info", text: "" },
-      { type: "scenario", text: steps[0]?.prompt || "" },
+      { type: "scenario", text: `🎯 ${steps[0]?.prompt || ""}` },
       { type: "info", text: "" },
     ]);
   };
@@ -258,13 +258,13 @@ export const CLISimulator = ({ title, scenarioDescription, steps, onComplete }: 
           <div
             key={i}
             className={cn(
-              "whitespace-pre-wrap leading-relaxed",
-              line.type === "input" && "text-terminal",
-              line.type === "output" && "text-muted-foreground",
-              line.type === "success" && "text-success font-medium",
-              line.type === "error" && "text-destructive",
-              line.type === "info" && "text-primary/70",
-              line.type === "scenario" && "text-accent font-medium"
+              "whitespace-pre-wrap",
+              line.type === "input" && "text-terminal leading-relaxed",
+              line.type === "output" && "text-muted-foreground leading-relaxed",
+              line.type === "success" && "text-success font-medium leading-relaxed",
+              line.type === "error" && "text-destructive leading-relaxed",
+              line.type === "info" && "text-primary/70 leading-relaxed",
+              line.type === "scenario" && "text-lg md:text-xl font-bold text-foreground text-glow leading-snug py-1"
             )}
           >
             {line.text}
