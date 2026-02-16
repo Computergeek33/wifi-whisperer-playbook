@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
+import { WiFiStory } from "@/components/WiFiStory";
 import { ModulesOverview } from "@/components/ModulesOverview";
 import { ModuleView } from "@/components/ModuleView";
 import { HardwareSetup } from "@/components/HardwareSetup";
@@ -78,7 +79,12 @@ const Index = () => {
       <Navigation currentSection={currentSection} onNavigate={handleNavigate} />
       
       <main>
-        {currentSection === "home" && <Hero onGetStarted={handleGetStarted} />}
+        {currentSection === "home" && (
+          <>
+            <Hero onGetStarted={handleGetStarted} />
+            <WiFiStory />
+          </>
+        )}
         
         <ModulesOverview onModuleClick={handleModuleClick} currentModule="" />
       </main>
