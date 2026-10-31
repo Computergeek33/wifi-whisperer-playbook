@@ -1,65 +1,15 @@
-import { Link } from "react-router-dom";
-import { Hero } from "@/components/Hero";
-import { WiFiStory } from "@/components/WiFiStory";
-import { stages } from "@/data/registry";
-import { topics } from "@/data/curriculum";
-import { ChevronRight } from "lucide-react";
-
-const Home = () => (
-  <div className="min-h-screen bg-background pt-16">
-    <main>
-      <Hero onGetStarted={() => {}} />
-      <WiFiStory />
-
-      {/* Guided journey */}
-      <section className="py-16 bg-secondary/20">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-2xl font-bold text-foreground mb-2 text-center">Start Here — guided path</h2>
-          <p className="text-muted-foreground text-center mb-8 text-sm">Follow these stages from foundations through authorized assessment, defense, modern wireless and building your own tools.</p>
-          <ol className="space-y-3">
-            {stages.map((stage, i) => {
-              const matching = topics.filter(t => t.stage === stage);
-              return (
-                <li key={stage} className="rounded-lg border border-border bg-card p-4">
-                  <div className="flex items-center gap-3 mb-1">
-                    <span className="text-xs font-mono bg-primary/10 text-primary rounded px-2 py-0.5">{String(i + 1).padStart(2, '0')}</span>
-                    <span className="font-medium text-foreground">{stage}</span>
-                  </div>
-                  {matching.length > 0 && (
-                    <ul className="ml-9 mt-2 space-y-1">
-                      {matching.map(t => (
-                        <li key={t.id}>
-                          <Link to={`/learn/${t.id}`} className="text-sm text-primary hover:underline flex items-center gap-1">
-                            {t.title} <ChevronRight className="w-3 h-3" />
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                  {matching.length === 0 && (
-                    <p className="ml-9 mt-1 text-xs text-muted-foreground">
-                      {stage === 'Supervised AI' ? <Link to="/ai" className="text-primary hover:underline">AI-Assisted Testing section</Link> : <Link to="/playbook" className="text-primary hover:underline">See playbook modules</Link>}
-                    </p>
-                  )}
-                </li>
-              );
-            })}
-          </ol>
-        </div>
-      </section>
-    </main>
-
-    <footer className="py-8 border-t border-border bg-card">
-      <div className="container mx-auto px-4 text-center">
-        <p className="text-sm text-muted-foreground">
-          WiFi Penetration Testing Playbook — 2027 edition — For authorized security testing only.
-        </p>
-        <p className="text-xs text-muted-foreground mt-2">
-          Unauthorized access to computer systems is illegal. Always obtain proper authorization. Content reviewed {new Date().toISOString().slice(0, 10)}.
-        </p>
-      </div>
-    </footer>
-  </div>
-);
-
-export default Home;
+import { Link } from 'react-router-dom';
+import { WiFiStory } from '@/components/WiFiStory';
+import { stages, lessons, reviewed } from '@/data/registry';
+import { topics } from '@/data/curriculum';
+import { Button } from '@/components/ui/button';
+import { ArrowRight, BookOpen, FlaskConical, BrainCircuit } from 'lucide-react';
+import labImage from '@/assets/training-lab.jpg';
+const destinations=[{to:'/playbook',title:'Playbook',detail:'17 original lessons, reviewed reference commands and correction notes.',icon:BookOpen},{to:'/practice',title:'Practice Labs',detail:'17 synthetic cases: evidence, defensive decisions, findings and retests.',icon:FlaskConical},{to:'/ai',title:'AI-Assisted Testing',detail:'Local, hosted and conversational paths—with evidence checks.',icon:BrainCircuit}];
+export default function Home(){return <main className="pt-16"><section className="py-9 md:py-12 border-b border-border"><div className="container max-w-6xl px-4"><div className="text-primary font-mono text-xs mb-4">COMPUTERGEEK / FIELD GUIDE 2027</div><h1 className="text-4xl md:text-5xl max-w-3xl leading-tight">WiFi Pentest Playbook</h1><p className="text-lg text-muted-foreground mt-4 max-w-2xl">Learn the network. Question the evidence. Defend the connection.</p><div className="mt-6 flex flex-wrap gap-3"><Button asChild><Link to="/learn/network-essentials">Start with the fundamentals <ArrowRight/></Link></Button><Button asChild variant="outline"><Link to="/practice">Open practice labs</Link></Button></div><p className="text-xs text-muted-foreground mt-5">2027 is the editorial edition · Reviewed {reviewed} · No certification or future-release claims</p></div></section>
+ <section className="container max-w-6xl px-4 py-8"><div className="grid md:grid-cols-3 gap-5">{destinations.map(({to,title,detail,icon:Icon})=><Link key={to} to={to} className="border border-border rounded-lg bg-card p-5 hover:border-primary transition-colors"><Icon className="text-primary w-6 h-6 mb-5"/><h2 className="text-xl mb-2">{title}</h2><p className="text-sm text-muted-foreground">{detail}</p><ArrowRight className="w-4 h-4 text-primary mt-5"/></Link>)}</div></section>
+ <section id="guided-path" className="container max-w-6xl px-4 py-6"><div className="flex flex-wrap justify-between gap-3 items-end border-b border-border pb-5"><div><span className="text-primary font-mono text-xs">START HERE</span><h2 className="mt-2">Your learning journey</h2></div><Link to="/playbook" className="text-sm text-primary underline">All {lessons.length} legacy lessons</Link></div><ol className="divide-y divide-border">{stages.map((stage,index)=>{const matching=topics.filter(t=>t.stage===stage),mapped=lessons.filter(l=>l.stage===stage);return <li key={stage} className="py-5 grid sm:grid-cols-[48px_1fr] gap-3"><span className="text-primary font-mono text-sm pt-1">{String(index+1).padStart(2,'0')}</span><div><h3>{stage}</h3><div className="flex flex-wrap gap-x-6 gap-y-3 mt-3">{matching.map(topic=><Link to={`/learn/${topic.id}`} key={topic.id} className="text-primary text-sm underline underline-offset-4">{topic.title}</Link>)}{mapped.map(lesson=><Link to={`/playbook/${lesson.id}`} key={lesson.id} className="text-sm text-muted-foreground hover:text-primary">{lesson.number} {lesson.title}</Link>)}{stage==='Supervised AI'&&<Link className="text-primary text-sm underline" to="/ai">Three supervised AI learning paths</Link>}</div></div></li>;})}</ol></section>
+ <figure className="container max-w-6xl px-4 my-10"><img src={labImage} width={1536} height={768} loading="lazy" alt="Illustrative isolated teaching setup with a Raspberry Pi, USB wireless adapter and access point" className="w-full aspect-[3/1] object-cover rounded-lg"/><figcaption className="text-xs text-muted-foreground mt-2">Generated teaching illustration—not a hardware-tested installation. Follow the equipment lesson for validation boundaries.</figcaption></figure>
+ <WiFiStory/>
+ <footer className="border-t border-border py-7"><div className="container px-4 max-w-6xl text-sm text-muted-foreground">For authorized security education. Synthetic practice executes no shell, radio tools or AI calls. Progress is local to this browser.</div></footer>
+ </main>;}
