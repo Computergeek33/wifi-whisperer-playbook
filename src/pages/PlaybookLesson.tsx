@@ -1,118 +1,20 @@
-import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, BookOpen, Terminal } from "lucide-react";
-import { useState } from "react";
-import { lessons } from "@/data/registry";
-import { CLISimulator } from "@/components/CLISimulator";
-import { MindsetSidebar } from "@/components/MindsetSidebar";
-import { moduleExercises } from "@/data/interactiveExercises";
-import { cn } from "@/lib/utils";
-import {
-  MonitorMode, NetworkDiscovery, WPACracking, DeauthAttacks, EvilTwin, WPSAttacks,
-  AdvancedRecon, OnlineBruteForce, AutomatedFrameworks, AdvancedEvilTwin,
-  AdvancedCracking, MITMAttacks, PostExploitation, SkillsAssessment, FullEngagement
-} from "@/components/modules";
-import { HardwareSetup } from "@/components/HardwareSetup";
-import { ReportingSection } from "@/components/ReportingSection";
-
-const components: Record<string, React.ReactNode> = {
-  "hardware-setup": <HardwareSetup />,
-  "monitor-mode": <MonitorMode />,
-  "network-discovery": <NetworkDiscovery />,
-  "wpa-cracking": <WPACracking />,
-  "deauth-attacks": <DeauthAttacks />,
-  "evil-twin": <EvilTwin />,
-  "wps-attacks": <WPSAttacks />,
-  "reporting": <ReportingSection />,
-  "advanced-recon": <AdvancedRecon />,
-  "online-bruteforce": <OnlineBruteForce />,
-  "automated-frameworks": <AutomatedFrameworks />,
-  "advanced-evil-twin": <AdvancedEvilTwin />,
-  "advanced-cracking": <AdvancedCracking />,
-  "mitm-attacks": <MITMAttacks />,
-  "post-exploitation": <PostExploitation />,
-  "skills-assessment": <SkillsAssessment />,
-  "full-engagement": <FullEngagement />,
-};
-
-const PlaybookLesson = () => {
-  const { moduleId } = useParams<{ moduleId: string }>();
-  const lesson = lessons.find(l => l.id === moduleId);
-  const [activeTab, setActiveTab] = useState<"learn" | "practice">("learn");
-  const exercise = moduleId ? moduleExercises[moduleId] : undefined;
-
-  if (!lesson || !moduleId) {
-    return (
-      <div className="min-h-screen bg-background pt-24 text-center">
-        <h1 className="text-2xl font-bold text-foreground mb-4">Module not found</h1>
-        <Link to="/playbook" className="text-primary hover:underline">Back to Playbook</Link>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen bg-background pt-16">
-      <div className="sticky top-16 z-40 bg-background/90 backdrop-blur-lg border-b border-border">
-        <div className="container mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-2">
-          <Link to="/playbook" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
-            <ArrowLeft className="w-4 h-4" />
-            <span className="text-sm font-medium">All Modules</span>
-          </Link>
-
-          {exercise && (
-            <div className="flex items-center gap-1 bg-secondary rounded-lg p-1">
-              <button
-                onClick={() => setActiveTab("learn")}
-                className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all",
-                  activeTab === "learn" ? "bg-primary/20 text-primary" : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                <BookOpen className="w-4 h-4" />
-                Learn
-              </button>
-              <button
-                onClick={() => setActiveTab("practice")}
-                className={cn(
-                  "flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all",
-                  activeTab === "practice" ? "bg-accent/20 text-accent" : "text-muted-foreground hover:text-foreground"
-                )}
-              >
-                <Terminal className="w-4 h-4" />
-                Simulated Lab
-              </button>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {activeTab === "learn" ? (
-        <div>{components[moduleId]}</div>
-      ) : exercise ? (
-        <div className="container mx-auto px-4 py-8">
-          <div className="max-w-7xl mx-auto">
-            <div className="mb-6">
-              <h2 className="text-xl font-bold text-foreground">{exercise.title}</h2>
-              <p className="text-sm text-muted-foreground">
-                Simulated command exercises with predetermined feedback. This is not a real terminal — it matches typed text against stored answers and displays canned output. Use this to rehearse, not to prove hardware proficiency.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
-              <aside>
-                <MindsetSidebar moduleId={moduleId} />
-              </aside>
-              <div className="min-w-0">
-                <CLISimulator
-                  title={exercise.title}
-                  scenarioDescription={exercise.scenarioDescription}
-                  steps={exercise.steps}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
-    </div>
-  );
-};
-export default PlaybookLesson;
+import { useParams, Link, useSearchParams } from 'react-router-dom';
+import { lessons, reviewed, sources } from '@/data/registry';
+import { ArrowLeft, FlaskConical, BookOpen } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { CLISimulator } from '@/components/CLISimulator';
+import { MindsetSidebar } from '@/components/MindsetSidebar';
+import { moduleExercises } from '@/data/interactiveExercises';
+import { HardwareSetup } from '@/components/HardwareSetup';
+import { ReportingSection } from '@/components/ReportingSection';
+import { MonitorMode, NetworkDiscovery, WPACracking, DeauthAttacks, EvilTwin, WPSAttacks, AdvancedRecon, OnlineBruteForce, AutomatedFrameworks, AdvancedEvilTwin, AdvancedCracking, MITMAttacks, PostExploitation, SkillsAssessment, FullEngagement } from '@/components/modules';
+const components:Record<string,React.ReactNode>={'hardware-setup':<HardwareSetup/>,'monitor-mode':<MonitorMode/>,'network-discovery':<NetworkDiscovery/>,'wpa-cracking':<WPACracking/>,'deauth-attacks':<DeauthAttacks/>,'evil-twin':<EvilTwin/>,'wps-attacks':<WPSAttacks/>,'reporting':<ReportingSection/>,'advanced-recon':<AdvancedRecon/>,'online-bruteforce':<OnlineBruteForce/>,'automated-frameworks':<AutomatedFrameworks/>,'advanced-evil-twin':<AdvancedEvilTwin/>,'advanced-cracking':<AdvancedCracking/>,'mitm-attacks':<MITMAttacks/>,'post-exploitation':<PostExploitation/>,'skills-assessment':<SkillsAssessment/>,'full-engagement':<FullEngagement/>};
+export default function PlaybookLesson(){
+ const {moduleId}=useParams();const [params,setParams]=useSearchParams();const lesson=lessons.find(l=>l.id===moduleId);
+ if(!lesson||!moduleId)return <main className="pt-28 container"><h1>Lesson not found</h1><Link to="/playbook" className="text-primary">All lessons</Link></main>;
+ const exercise=moduleExercises[moduleId],rehearsal=params.get('view')==='rehearsal';
+ return <main className="pt-16"><div className="border-b border-border bg-background sticky top-16 z-30"><div className="container px-4 py-3 flex flex-wrap gap-3 items-center justify-between"><Link to="/playbook" className="text-sm text-primary inline-flex gap-2 items-center"><ArrowLeft className="w-4 h-4"/>All lessons</Link><div className="flex flex-wrap gap-2"><Button size="sm" variant="outline" onClick={()=>setParams({})}><BookOpen/>Read</Button><Button size="sm" asChild><Link to={`/practice/${moduleId}`}><FlaskConical/>Evidence lab</Link></Button>{exercise&&<Button size="sm" variant="ghost" onClick={()=>setParams({view:'rehearsal'})}>Legacy rehearsal</Button>}</div></div></div>
+ <div className="container px-4 pt-6 max-w-5xl"><details className="border-l-4 border-primary bg-secondary/50 p-4" open><summary className="font-semibold text-sm">2027 edition review & validation boundary</summary><p className="text-sm mt-3">Reviewed {reviewed}. Historical command references retain their breadth but are not hardware-tested here. Applicability and unexplained flags require installed-version review. Disruptive automation is fail-closed and retained only as disabled review material. Use synthetic evidence labs for current practice.</p><p className="text-sm mt-2">Corrections include WPS lock interpretation, unsupported Wacker timeout, aircrack-ng CPU threading, recovery guarantees and capability-versus-injection claims. The old driver path is historical; upstream now recommends reviewing rtw88.</p><div className="flex flex-wrap gap-4 mt-3 text-sm"><Link to="/learn/isolated-lab" className="text-primary underline">Equipment & driver decision path</Link><Link to="/learn/modern-wireless" className="text-primary underline">Modern applicability</Link><a href={sources.driver} className="text-primary underline" target="_blank" rel="noreferrer">Driver maintainer</a><a href="https://github.com/blunderbuss-wctf/wacker/blob/master/wacker.py" className="text-primary underline" target="_blank" rel="noreferrer">Wacker parser</a></div></details></div>
+ {rehearsal&&exercise?<div className="container max-w-6xl px-4 py-8 grid lg:grid-cols-[260px_minmax(0,1fr)] gap-7"><aside><MindsetSidebar moduleId={moduleId}/></aside><div className="min-w-0"><CLISimulator key={moduleId} title={exercise.title} scenarioDescription={exercise.scenarioDescription} steps={exercise.steps}/></div></div>:components[moduleId]}
+ </main>;
+}
