@@ -1,82 +1,91 @@
-import { Shield, Menu, X } from "lucide-react";
+import { Shield, Menu, X, Sun, Moon } from "lucide-react";
 import { useState } from "react";
-import { Button } from "./ui/button";
+import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/hooks/useTheme";
 
-interface NavigationProps {
-  currentSection: string;
-  onNavigate: (section: string) => void;
-}
+const navItems = [
+  { to: "/", label: "Start Here" },
+  { to: "/playbook", label: "Playbook" },
+  { to: "/practice", label: "Practice Labs" },
+  { to: "/ai", label: "AI-Assisted" },
+  { to: "/learn", label: "Learn" },
+];
 
-export const Navigation = ({ currentSection, onNavigate }: NavigationProps) => {
+export const Navigation = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const navItems = [
-    { id: "home", label: "Home" },
-    { id: "modules", label: "Modules" },
-    { id: "hardware", label: "Hardware Setup" },
-    { id: "reporting", label: "Reporting" },
-  ];
+  const { theme, toggle } = useTheme();
+  const location = useLocation();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <button
-            onClick={() => onNavigate("home")}
-            className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
-          >
+          <Link to="/" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
             <Shield className="w-6 h-6 text-primary" />
             <span className="font-bold tracking-tight">WiFi Pentest Playbook</span>
-          </button>
+          </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
             {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => onNavigate(item.id)}
+              <Link
+                key={item.to}
+                to={item.to}
                 className={cn(
                   "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
-                  currentSection === item.id
+                  (item.to === "/" ? location.pathname === "/" : location.pathname.startsWith(item.to))
                     ? "bg-primary/20 text-primary"
                     : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                 )}
               >
                 {item.label}
-              </button>
+              </Link>
             ))}
+            <button
+              onClick={toggle}
+              className="ml-2 p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors min-h-11 min-w-11 flex items-center justify-center"
+              aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+            >
+              {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+            </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-muted-foreground hover:text-foreground"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="flex items-center gap-1 md:hidden">
+            <button
+              onClick={toggle}
+              className="p-2 text-muted-foreground hover:text-foreground min-h-11 min-w-11 flex items-center justify-center"
+              aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+            >
+              {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+            </button>
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 text-muted-foreground hover:text-foreground min-h-11 min-w-11 flex items-center justify-center"
+              aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Navigation */}
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-border">
             <div className="flex flex-col gap-1">
               {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => {
-                    onNavigate(item.id);
-                    setMobileMenuOpen(false);
-                  }}
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={() => setMobileMenuOpen(false)}
                   className={cn(
                     "px-4 py-3 rounded-lg text-sm font-medium text-left transition-all duration-200",
-                    currentSection === item.id
+                    (item.to === "/" ? location.pathname === "/" : location.pathname.startsWith(item.to))
                       ? "bg-primary/20 text-primary"
                       : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                   )}
                 >
                   {item.label}
-                </button>
+                </Link>
               ))}
             </div>
           </div>
