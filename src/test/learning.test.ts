@@ -22,5 +22,6 @@ describe('synthetic-only scope',()=>{
 });
 describe('safe evidence-tool examples',()=>{
  it('counts synthetic records while reporting invalid lines',()=>expect(summarizeLogs('{"event":"reject"}\nbad\n{"event":"reject"}')).toEqual({records:2,invalidLines:[2],events:{reject:2}}));
+ it('preserves line numbers across blank lines and rejects scalar JSON',()=>expect(summarizeLogs('\n{"event":"__proto__"}\nfalse')).toEqual({records:1,invalidLines:[3],events:{['__proto__']:1}}));
  it('shows changed and removed configuration keys',()=>expect(compareConfig('pmf=optional\nwps=enabled','pmf=required')).toEqual([{key:'pmf',before:'optional',after:'required'},{key:'wps',before:'enabled',after:'(absent)'}]));
 });

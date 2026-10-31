@@ -7,7 +7,7 @@ interface Props {title:string;scenarioDescription:string;steps:CLIStep[];onCompl
 export const CLISimulator=({title,scenarioDescription,steps,onComplete}:Props)=>{
  const key='rehearsal:'+title;
  const prior=readProgress()[key];
- const [index,setIndex]=useState(prior?.step&&prior.step<steps.length?prior.step:0),[input,setInput]=useState(''),[accepted,setAccepted]=useState(false),[feedback,setFeedback]=useState(''),[hint,setHint]=useState(false),[done,setDone]=useState(false),[answers,setAnswers]=useState<Record<string,string>>(prior?.answers||{});
+ const [index,setIndex]=useState(Number.isInteger(prior?.step)&&Number(prior?.step)>=0&&Number(prior?.step)<steps.length?Number(prior?.step):0),[input,setInput]=useState(''),[accepted,setAccepted]=useState(false),[feedback,setFeedback]=useState(''),[hint,setHint]=useState(false),[done,setDone]=useState(false),[answers,setAnswers]=useState<Record<string,string>>(prior?.answers||{});
  const locked=useRef(false); const step=steps[index];
  if(!step)return <p>No rehearsal steps supplied.</p>;
  const advance=(correct?:boolean)=>{const nextAnswers={...answers,...(step.quiz?{[step.id]:correct?'correct':'incorrect'}:{})};setAnswers(nextAnswers); const next=index+1; const quizzes=steps.filter(s=>s.quiz).length;const score=Object.values(nextAnswers).filter(v=>v==='correct').length;saveProgress(key,{step:next,complete:next===steps.length,mastered:next===steps.length&&quizzes>0&&score===quizzes,score,total:quizzes,answers:nextAnswers});if(next===steps.length){setDone(true);onComplete?.();}else{setIndex(next);setAccepted(false);setHint(false);setFeedback('');}locked.current=false;};

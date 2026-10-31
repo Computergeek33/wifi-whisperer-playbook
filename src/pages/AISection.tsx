@@ -73,7 +73,7 @@ const AISection = () => (
 
       <div className="space-y-8">
         {paths.map((path, i) => (
-          <section key={i} className="rounded-xl border border-border bg-card overflow-hidden">
+          <section key={i} className="border-t border-border pt-6">
             <div className="px-5 py-4 border-b border-border bg-secondary/30">
               <h2 className="text-lg font-bold text-foreground">{path.title}</h2>
               <p className="text-sm text-muted-foreground">{path.summary}</p>
@@ -100,7 +100,7 @@ const AISection = () => (
       <AISandbox />
 
       {/* Execution architecture teaching */}
-      <section className="mt-12 p-5 rounded-xl border border-border bg-card">
+      <section className="mt-12 pt-6 border-t border-border">
         <div className="flex items-center gap-2 mb-3">
           <Shield className="w-5 h-5 text-primary" />
           <h2 className="text-lg font-bold text-foreground">If you build an execution layer</h2>
@@ -115,7 +115,7 @@ const AISection = () => (
             <li>A stop button that halts all running actions and triggers cleanup.</li>
             <li>Reliable state restoration: saved interface/service/firewall state before the run, restored after.</li>
           </ol>
-          <p>This site does not provide or host such an execution layer. The description above is a teaching reference for teams who build their own under appropriate authorization and oversight.</p>
+          <p>A local runner must also validate the target allowlist, reject stale approvals, log input/output hashes and retain a saved baseline. On stop or timeout it must terminate child processes, restore saved values rather than arbitrary defaults, and independently compare the resulting state. If restoration fails, block further actions and escalate to the lab owner. This site does not provide or host such an execution layer. The description above is a teaching reference for teams who build their own under appropriate authorization and oversight.</p>
         </div>
       </section>
     </main>
