@@ -4,6 +4,10 @@ import { ScriptBlock } from "../ScriptBlock";
 
 export const MonitorMode = () => {
   const monitorScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Monitor Mode & Packet Capture Automation Script
 # For Raspberry Pi 4 with Alfa AWUS036ACH
 # Usage: sudo bash monitor_capture.sh <interface> [channel] [output_file]
@@ -115,6 +119,10 @@ cleanup() {
 trap cleanup EXIT`;
 
   const tcpdumpScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Advanced tcpdump Wireless Capture Script
 # Captures specific frame types for analysis
 

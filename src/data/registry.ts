@@ -1,0 +1,36 @@
+export const reviewed = '2026-10-31';
+export const lessons = [
+  ['hardware-setup','Hardware Setup','Raspberry Pi 4, Alfa AWUS036ACH and an isolated lab','Equipment'],
+  ['monitor-mode','Monitor Mode & Packet Capture','Interfaces, capture modes and evidence quality','Tools & evidence'],
+  ['network-discovery','Network Discovery & Reconnaissance','Read inventories and distinguish observation from inference','Tools & evidence'],
+  ['wpa-cracking','WPA/WPA2 Handshake Capture','Authentication evidence and password-recovery limitations','Authorized assessment'],
+  ['deauth-attacks','Deauthentication Attacks','Historical disruption, PMF and strict scope','Authorized assessment'],
+  ['evil-twin','Evil Twin & Rogue AP','Trust boundaries, client behavior and detection','Authorized assessment'],
+  ['wps-attacks','WPS Vulnerabilities','PIN exposure, lock states and remediation','Authorized assessment'],
+  ['reporting','Professional Reporting','Evidence, impact, remediation and retest','Defense & reporting'],
+  ['advanced-recon','Advanced Recon Tools','GPSD, Kismet and responsible inventory analysis','Tools & evidence'],
+  ['online-bruteforce','Online Brute Force Attacks','Rate limits, lockouts and protocol-specific constraints','Authorized assessment'],
+  ['automated-frameworks','Automated Attack Frameworks','Validate findings rather than trusting automation','Authorized assessment'],
+  ['advanced-evil-twin','Advanced Evil Twin Tools','Enterprise certificate validation and defensive review','Authorized assessment'],
+  ['advanced-cracking','Advanced Cracking & Recovery','Formats, resource limits and reproducible recovery','Authorized assessment'],
+  ['mitm-attacks','MITM & Network Attacks','Layer-two trust, TLS limitations and segmentation','Authorized assessment'],
+  ['post-exploitation','Post-Exploitation & Firmware','Version inventory, evidence handling and recovery','Authorized assessment'],
+  ['skills-assessment','Skills Assessment','Synthetic assessment with evidence and retest rubric','Defense & reporting'],
+  ['full-engagement','Full Engagement Workflow','Scope through evidence, findings, cleanup and retest','Defense & reporting'],
+].map(([id,title,description,stage],index)=>({id,title,description,stage,number:String(index+1).padStart(2,'0')}));
+export const stages = ['Computers & networks','Linux essentials','Wireless fundamentals','Equipment','Tools & evidence','Authorized assessment','Defense & reporting','Modern wireless','Build your tools','Supervised AI'];
+export const sources = {
+ linux:'https://www.kali.org/docs/introduction/',
+ pi:'https://www.kali.org/docs/arm/raspberry-pi-4/',
+ driver:'https://github.com/aircrack-ng/rtl8812au',
+ modern:'https://www.wi-fi.org/discover-wi-fi/security',
+ owe:'https://www.rfc-editor.org/rfc/rfc8110',
+ sae:'https://www.rfc-editor.org/rfc/rfc7664',
+ enterprise:'https://learn.microsoft.com/en-us/windows-server/networking/technologies/extensible-authentication-protocol/network-access',
+ six:'https://www.wi-fi.org/discover-wi-fi/wi-fi-6e',
+ seven:'https://www.wi-fi.org/discover-wi-fi/wi-fi-certified-7',
+ openai:'https://platform.openai.com/docs/guides/safety-best-practices',
+ keys:'https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety',
+ local:'https://docs.ollama.com/faq',
+ privacy:'https://help.openai.com/en/articles/7730893-data-controls-faq',
+};

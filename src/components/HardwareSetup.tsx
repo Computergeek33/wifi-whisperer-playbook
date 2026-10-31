@@ -4,6 +4,10 @@ import { ScriptBlock } from "./ScriptBlock";
 
 export const HardwareSetup = () => {
   const installScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Alfa AWUS036ACH Driver Installation Script
 # For Raspberry Pi 4 running Kali Linux
 
@@ -56,7 +60,7 @@ echo "[+] Your adapter should appear as wlan1 or similar."`;
                 <div>
                   <h3 className="font-semibold text-foreground mb-1">Raspberry Pi 4</h3>
                   <p className="text-sm text-muted-foreground">
-                    4GB or 8GB RAM recommended. Install Kali Linux ARM image for best tool compatibility.
+                    4GB or 8GB RAM recommended. Install Kali Linux ARM image and verify each tool’s ARM support.
                   </p>
                 </div>
               </div>
@@ -95,7 +99,7 @@ echo "[+] Your adapter should appear as wlan1 or similar."`;
             <CommandBlock
               command="sudo apt update && sudo apt upgrade -y"
               description="Step 1: Update your system"
-              explanation="Ensures all packages are current before installing new drivers. Prevents dependency conflicts."
+              explanation="Ensures all packages are current before installing new drivers. This does not guarantee dependency compatibility; record the kernel and matching headers and plan recovery."
             />
 
             <CommandBlock
@@ -107,7 +111,7 @@ echo "[+] Your adapter should appear as wlan1 or similar."`;
             <CommandBlock
               command="git clone https://github.com/aircrack-ng/rtl8812au.git"
               description="Step 3: Clone the driver repository"
-              explanation="The aircrack-ng maintained driver has better monitor mode and injection support than stock drivers."
+              explanation="Historical driver path: the upstream README now directs users toward mac80211 rtw88. Confirm your exact kernel/driver/device matrix before installation; neither this example nor capability output is hardware validation."
             />
 
             <CommandBlock
@@ -141,7 +145,7 @@ wlan1     IEEE 802.11AC  ESSID:off/any
             title="Complete Driver Installation"
             filename="install_alfa.sh"
             language="bash"
-            description="Run this script to automate the entire driver installation process. Save as install_alfa.sh and run with sudo bash install_alfa.sh"
+            description="Archived installation example, disabled pending current driver/kernel validation. Use the equipment foundations lesson for the current decision process."
             code={installScript}
           />
 

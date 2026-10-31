@@ -1,72 +1,9 @@
-import { useState } from "react";
-import { Check, Copy, Terminal } from "lucide-react";
-import { cn } from "@/lib/utils";
-
-interface CommandBlockProps {
-  command: string;
-  description?: string;
-  explanation?: string;
-  output?: string;
-}
-
-export const CommandBlock = ({ command, description, explanation, output }: CommandBlockProps) => {
-  const [copied, setCopied] = useState(false);
-
-  const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(command);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  return (
-    <div className="group rounded-lg border border-border bg-card overflow-hidden transition-all duration-300 hover:border-primary/50 hover:box-glow">
-      {description && (
-        <div className="px-4 py-3 border-b border-border bg-secondary/30">
-          <p className="text-sm text-foreground font-medium">{description}</p>
-        </div>
-      )}
-      
-      <div className="relative">
-        <div className="flex items-center gap-2 px-4 py-2 bg-muted/30 border-b border-border">
-          <Terminal className="w-4 h-4 text-terminal" />
-          <span className="text-xs font-mono text-muted-foreground">Terminal</span>
-        </div>
-        
-        <div className="p-4 bg-background/50">
-          <div className="flex items-start justify-between gap-4">
-            <code className="font-mono text-sm text-terminal break-all flex-1">
-              <span className="text-muted-foreground select-none">$ </span>
-              {command}
-            </code>
-            <button
-              onClick={copyToClipboard}
-              className={cn(
-                "flex-shrink-0 p-2 rounded-md transition-all duration-200",
-                "hover:bg-primary/20 text-muted-foreground hover:text-primary",
-                copied && "bg-success/20 text-success"
-              )}
-              title="Copy to clipboard"
-            >
-              {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-            </button>
-          </div>
-        </div>
-
-        {output && (
-          <div className="px-4 py-3 bg-muted/20 border-t border-border">
-            <pre className="font-mono text-xs text-muted-foreground whitespace-pre-wrap">{output}</pre>
-          </div>
-        )}
-      </div>
-
-      {explanation && (
-        <div className="px-4 py-3 border-t border-border bg-secondary/20">
-          <p className="text-sm text-muted-foreground">
-            <span className="text-primary font-medium">Why: </span>
-            {explanation}
-          </p>
-        </div>
-      )}
-    </div>
-  );
+import { useState } from 'react';
+import { Copy, Check, Terminal } from 'lucide-react';
+import { Button } from './ui/button';
+interface CommandBlockProps {command:string;description?:string;explanation?:string;output?:string;}
+export const CommandBlock=({command,description,explanation,output}:CommandBlockProps)=>{
+ const [copied,setCopied]=useState(false),[error,setError]=useState('');
+ const flags=command.match(/(?:^|\s)(--?[a-zA-Z0-9][a-zA-Z0-9-]*)/g)?.map(flag=>flag.trim())||[];
+ return <div className="border border-border rounded-lg overflow-hidden"><div className="px-4 py-3 bg-secondary/50"><h4 className="font-semibold text-sm">{description||'Command reference'}</h4></div><div className="code-panel rounded-none"><div className="flex items-start gap-3"><Terminal className="w-4 h-4 shrink-0 mt-1"/><code className="flex-1 min-w-0 break-all">$ {command}</code><Button size="icon" variant="ghost" aria-label="Copy command reference" onClick={async()=>{try{await navigator.clipboard.writeText(command);setCopied(true);setError('');}catch{setError('Copy unavailable. Select the command text instead.');}}}>{copied?<Check/>:<Copy/>}</Button></div>{error&&<p role="status">{error}</p>}</div>{output&&<details className="p-4 border-t border-border"><summary>Illustrative output — not a measured result</summary><pre className="code-panel mt-3">{output}</pre></details>}<dl className="p-4 text-sm space-y-3"><div><dt className="font-semibold text-primary">Purpose & reasoning</dt><dd className="text-muted-foreground">{explanation||'Review the installed tool documentation before use.'}</dd></div><details><summary className="font-medium">Flags, prerequisites, output & recovery</summary><div className="space-y-3 mt-3"><div><dt className="font-semibold">Flags / syntax</dt><dd>Tokens in this example: {flags.length?[...new Set(flags)].join(', '):'no option flags'}. Meanings explained above are lesson-specific; any unexplained flag remains unvalidated. Confirm with the installed tool’s help, not by analogy with another tool.</dd></div><div><dt className="font-semibold">Prerequisites</dt><dd>Written action-specific scope, identified local equipment, reviewed tool version and a recovery path. Names and paths in legacy examples are illustrative.</dd></div><div><dt className="font-semibold">Expected evidence</dt><dd>{output?'Compare the illustrative output above with raw evidence, protocol context and timestamps.':'No output fixture is supplied for this command; do not infer success solely from the exit code.'}</dd></div><div><dt className="font-semibold">Troubleshooting</dt><dd>Check exact syntax/version, permissions, interface identity and input format before changing settings. Stop on unexpected targets or data.</dd></div><div><dt className="font-semibold">Cleanup & applicability</dt><dd>Restore saved interface, service and firewall state after local changes; verify recovery independently. Legacy reference, reviewed 2026-10-31; not hardware-tested here. Applicability varies by driver, kernel, protocol and tool revision.</dd></div></div></details></dl></div>;
 };

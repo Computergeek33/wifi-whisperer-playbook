@@ -23,6 +23,10 @@ const PhaseHeader = ({ phase, title, description }: { phase: string; title: stri
 );
 
 const fullScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # ═══════════════════════════════════════════════════════════════
 # WiFi Penetration Test — Full Engagement Automation Script
 # For authorized security assessments only
@@ -155,7 +159,7 @@ export const FullEngagement = () => {
 
           <TipBox title="Real-World Tip: Scope Check">
             <p>Always confirm the scope document lists specific SSIDs, BSSIDs, and approved attack types.
-            If WPS attacks aren't approved, skip Phase 6. If deauth is off-limits, rely on passive handshake capture.</p>
+            If WPS attacks aren't approved, skip Phase 5. If deauth is off-limits, rely on passive handshake capture.</p>
           </TipBox>
 
           <div className="space-y-4 mb-8">
@@ -177,7 +181,7 @@ wlan1     IEEE 802.11AC  Mode:Managed  Access Point: Not-Associated`}
             <CommandBlock
               command="iw phy phy1 info | grep -A 10 'valid interface combinations'"
               description="Step 3: Check adapter capabilities"
-              explanation="Confirms your adapter supports monitor mode and packet injection — not all adapters do. If you don't see 'monitor' listed, this adapter won't work for pentesting."
+              explanation="Shows reported interface combinations only. Inspect supported interface modes separately; this does not verify packet injection or operational driver behavior."
             />
 
             <CommandBlock
@@ -378,7 +382,7 @@ Read 8924 packets.
             <CommandBlock
               command="sudo wash -i wlan1 -C"
               description="Step 16: Scan for WPS-enabled APs"
-              explanation="-C ignores frame check sequence errors (common with some drivers). Look for targets where 'Lck' column shows 'No' — these are attackable. 'Yes' means WPS is rate-limited."
+              explanation="-C ignores frame check sequence errors (common with some drivers). Look for targets where 'Lck' column shows 'No' — this is currently unlocked, not proof of exploitability. 'Yes' means WPS is rate-limited."
               output={`BSSID               Ch  dBm  WPS  Lck  Vendor    ESSID
 AA:BB:CC:DD:EE:01    6  -42  2.0  No   Netgear   CorpOffice
 AA:BB:CC:DD:EE:04    6  -65  1.0  Yes  TP-Link   IoT-Devices`}
@@ -387,7 +391,7 @@ AA:BB:CC:DD:EE:04    6  -65  1.0  Yes  TP-Link   IoT-Devices`}
             <CommandBlock
               command="sudo reaver -i wlan1 -b AA:BB:CC:DD:EE:01 -c 6 -K"
               description="Step 17: Pixie Dust attack"
-              explanation="-K enables Pixie Dust (offline WPS PIN calculation). This exploits weak random number generation in the WPS handshake. If the router is vulnerable, you get the PIN and PSK in under 30 seconds."
+              explanation="-K enables Pixie Dust (offline WPS PIN calculation). This exploits weak random number generation in the WPS handshake. If the router is vulnerable, recovery may be possible; timing and success are not guaranteed."
               output={`[+] Waiting for beacon from AA:BB:CC:DD:EE:01
 [+] Received beacon from AA:BB:CC:DD:EE:01
 [+] Trying pin "12345670"
@@ -407,7 +411,7 @@ AA:BB:CC:DD:EE:04    6  -65  1.0  Yes  TP-Link   IoT-Devices`}
             <CommandBlock
               command="sudo reaver -i wlan1 -b AA:BB:CC:DD:EE:01 -c 6 -vv -d 2 -N"
               description="Step 19: WPS brute force (last resort)"
-              explanation="If Pixie Dust fails, try online brute force. -d 2 adds a 2-second delay between attempts to avoid lockouts. -N disables NACK detection. This can take 4-10 hours but will eventually find the PIN."
+              explanation="If Pixie Dust fails, try online brute force. -d 2 adds a 2-second delay between attempts to avoid lockouts. -N disables NACK detection. Completion is not guaranteed; lockouts, implementation differences and authorization limits may prevent testing. A delay is not a lockout guarantee."
             />
           </div>
 
@@ -436,7 +440,7 @@ AA:BB:CC:DD:EE:04    6  -65  1.0  Yes  TP-Link   IoT-Devices`}
             <CommandBlock
               command="aircrack-ng -w /usr/share/wordlists/rockyou.txt engagement-01.cap"
               description="Step 21: Quick crack with aircrack-ng (CPU)"
-              explanation="Fast way to try common passwords. Good for quick wins but CPU-only and single-threaded. Use this for initial testing, then switch to hashcat for serious cracking."
+              explanation="Fast way to try common passwords. Good for quick wins and supports multiple CPU cores; performance varies by workload. Use this for initial testing, then switch to hashcat for serious cracking."
             />
 
             <CommandBlock

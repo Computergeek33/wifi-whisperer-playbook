@@ -4,6 +4,10 @@ import { ScriptBlock } from "../ScriptBlock";
 
 export const AutomatedFrameworks = () => {
   const wifite2Script = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Wifite2 Automated Attack Script
 # Configurable automated WiFi attack runner
 # Usage: sudo bash run_wifite.sh [interface]

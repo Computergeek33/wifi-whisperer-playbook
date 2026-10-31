@@ -4,6 +4,10 @@ import { ScriptBlock } from "../ScriptBlock";
 
 export const NetworkDiscovery = () => {
   const reconScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Comprehensive WiFi Reconnaissance Script
 # For Raspberry Pi 4 with Alfa AWUS036ACH
 # Usage: sudo bash wifi_recon.sh <interface> [duration_seconds]
@@ -142,6 +146,10 @@ if [ "\$WEP_COUNT" -gt 0 ] || [ "\$OPEN_COUNT" -gt 0 ]; then
 fi`;
 
   const clientEnumScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Client Enumeration Script
 # Identifies all wireless clients and their associated networks
 
