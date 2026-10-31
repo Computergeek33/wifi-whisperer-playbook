@@ -94,7 +94,7 @@ const PracticeLab = () => {
         {/* Evidence panel */}
         <div className="rounded-lg border border-border overflow-hidden">
           <div className="px-4 py-2 bg-muted/30 border-b border-border text-xs font-mono text-muted-foreground">Synthetic evidence</div>
-          <pre className="p-4 font-mono text-sm text-foreground terminal-bg text-[hsl(142_70%_50%)] whitespace-pre-wrap">{lab.evidence}</pre>
+          <pre className="p-4 font-mono text-sm code-panel whitespace-pre-wrap">{lab.evidence}</pre>
         </div>
 
         {/* Quiz */}

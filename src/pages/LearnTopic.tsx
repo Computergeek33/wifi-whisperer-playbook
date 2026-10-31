@@ -32,7 +32,7 @@ const LearnTopic = () => {
         </div>
       </div>
 
-      <main className="container mx-auto px-4 py-8 max-w-3xl prose prose-sm dark:prose-invert">
+      <main className="container mx-auto px-4 py-8 max-w-3xl reading">
         <p className="text-xs text-muted-foreground not-prose">Stage: {topic.stage} · Reviewed {reviewed}</p>
         <h1>{topic.title}</h1>
         <p className="lead">{topic.summary}</p>
