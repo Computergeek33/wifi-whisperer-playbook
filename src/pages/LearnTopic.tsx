@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, ExternalLink, CheckCircle2, XCircle } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { topicById, reviewed } from "@/data/curriculum";
 import { Button } from "@/components/ui/button";
 import { Workshop } from "@/components/Workshop";
@@ -10,6 +10,8 @@ const LearnTopic = () => {
   const topic = topicId ? topicById(topicId) : undefined;
   const [selected, setSelected] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => { setSelected(null); setSubmitted(false); }, [topicId]);
 
   if (!topic) {
     return (
@@ -69,13 +71,13 @@ const LearnTopic = () => {
           <h3 className="font-medium text-foreground">{topic.check.question}</h3>
           <div className="space-y-2" role="radiogroup" aria-label="Knowledge check">
             {topic.check.options.map((opt, i) => (
-              <button
+              <Button variant="outline"
                 key={i}
                 role="radio"
                 aria-checked={selected === i}
                 onClick={() => !submitted && setSelected(i)}
                 disabled={submitted}
-                className={`w-full text-left px-4 py-3 rounded-lg border text-sm transition-all ${
+                className={`w-full h-auto whitespace-normal text-left justify-start px-4 py-3 rounded-lg border text-sm transition-all ${
                   submitted && i === topic.check.answer ? 'border-success bg-success/10' :
                   submitted && i === selected ? 'border-destructive bg-destructive/10' :
                   !submitted && i === selected ? 'border-primary bg-primary/10' :
@@ -88,7 +90,7 @@ const LearnTopic = () => {
                   {submitted && i === topic.check.answer && <CheckCircle2 className="w-4 h-4 ml-auto text-success" />}
                   {submitted && i === selected && i !== topic.check.answer && <XCircle className="w-4 h-4 ml-auto text-destructive" />}
                 </span>
-              </button>
+              </Button>
             ))}
           </div>
           {!submitted && selected !== null && <Button onClick={() => setSubmitted(true)}>Submit</Button>}

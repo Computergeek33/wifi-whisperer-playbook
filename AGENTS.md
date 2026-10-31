@@ -4,3 +4,4 @@
 - Local progress and theme are device-only preferences, not accounts or shared learner records; this avoids implying server persistence.
 - Archived disruptive scripts are displayed only as disabled review artifacts, with original teaching context retained; operational approval requires a separate isolated hardware validation.
 - All new learning sources carry a review date and validation boundary; edition naming must not imply future tool releases.
+- Use Bun with the committed text bun.lock as the single dependency workflow; avoid competing lock graphs and review Vite upgrades separately for plugin compatibility.

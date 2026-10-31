@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft, ExternalLink, AlertTriangle, Shield } from "lucide-react";
+import { AISandbox } from "@/components/AISandbox";
 import { sources, reviewed } from "@/data/registry";
 
 const paths = [
   {
-    title: "Path 1 — Local model (offline, private)",
-    summary: "Run a small language model on your own machine for evidence summarization and report drafting. No network required after setup.",
+    title: "Path 1 — Local model (offline-capable)",
+    summary: "Run a small language model on your own machine for evidence summarization and report drafting. Offline operation depends on local weights and configuration.",
     detail: [
-      "Install Ollama or a comparable local-inference server. Models run on your CPU/GPU; larger models need more memory.",
+      "Install Ollama or a comparable local-inference server. Check OS support, disk space, RAM and the model license first. Models run on your CPU/GPU; larger models need more memory. A Pi 4 is resource-constrained and is not a guarantee of acceptable performance.",
       "Start with an instruction-following model under 8B parameters. Feed synthetic evidence and ask for structured summaries.",
       "The local model does not run WiFi tools, access your adapter, or execute commands. It generates text from a prompt. All output requires human review.",
       "Privacy depends on the model, its configuration and any telemetry. Local does not automatically mean private; inspect the software's own network behavior.",
@@ -17,11 +18,11 @@ const paths = [
   },
   {
     title: "Path 2 — Hosted API (cloud, metered)",
-    summary: "Use a commercial API for evidence analysis. Requires an API key, a payment method and careful data handling.",
+    summary: "Use a commercial API for evidence analysis. Requires provider access, any applicable billing arrangement and careful data handling.",
     detail: [
       "Create an API key through the provider's platform. Never embed the key in browser-facing code, a public repository, or a chat message. Store it in a server-side environment variable or a secrets manager.",
       "API calls transmit your prompt to the provider. Review the provider's data-use and retention policy before sending engagement evidence. Redact credentials, personal data and client-identifying detail.",
-      "Costs depend on token volume. Set spending limits before experimenting. A training exercise with synthetic data costs very little; a large capture summary costs more.",
+      "Costs depend on token volume. Set spending limits before experimenting. No price is assumed here: check current provider pricing, budget caps and usage before calling. This site makes no API calls.",
       "The API returns text predictions, not verified security findings. Cross-check every claim against your evidence and tool output.",
       "Exercise: send the synthetic WPS lock-state evidence to an API endpoint and ask whether the network is exploitable. Evaluate whether the response distinguishes observation from inference and names its uncertainty.",
     ],
@@ -33,7 +34,7 @@ const paths = [
     detail: [
       "ChatGPT and similar assistants are separate products from the API. Consumer-tier conversations may be used for training unless you opt out; check the provider's current data-controls page.",
       "Do not paste real engagement credentials, client names or captured traffic into a consumer chat. Use synthetic or redacted evidence only.",
-      "The model can help structure a report, suggest remediation language or explain a protocol. It cannot run tools, verify hardware, or access your network.",
+      "The model can help structure a report, suggest remediation language or explain a protocol. A model alone does not run tools; some assistant products expose optional tools. No hardware or network access is granted by this site.",
       "Hallucination challenge: ask the model to interpret a deliberately incomplete evidence set. Does it invent missing observations, cite nonexistent advisories or claim certainty it cannot have? Record each invented claim.",
       "A model output is not an independent verification. If you use it in a report, attribute it as model-assisted and retain human accountability for every factual claim.",
     ],
@@ -95,6 +96,8 @@ const AISection = () => (
           </section>
         ))}
       </div>
+
+      <AISandbox />
 
       {/* Execution architecture teaching */}
       <section className="mt-12 p-5 rounded-xl border border-border bg-card">

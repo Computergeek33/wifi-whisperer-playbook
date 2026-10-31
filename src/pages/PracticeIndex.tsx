@@ -35,7 +35,7 @@ const PracticeIndex = () => {
                   <span className="font-medium text-foreground">{lesson.title}</span>
                 </div>
                 <span className="text-xs text-muted-foreground">
-                  {p?.mastered ? '★ Mastered' : p?.complete ? '✓ Complete' : p?.step ? `Step ${p.step}` : 'Start'}
+                  {p?.mastered ? '✓ Complete · 3/3 checks' : p?.complete ? '✓ Complete · review checks' : p?.step ? `Step ${p.step}` : 'Start'}
                 </span>
               </Link>
             );

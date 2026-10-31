@@ -1,6 +1,7 @@
 import { Shield, Menu, X, Sun, Moon } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/hooks/useTheme";
 
@@ -23,7 +24,7 @@ export const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2 text-foreground hover:text-primary transition-colors">
             <Shield className="w-6 h-6 text-primary" />
-            <span className="font-bold tracking-tight">WiFi Pentest Playbook</span>
+            <span className="font-bold text-sm sm:text-base">WiFi Playbook <span className="hidden sm:inline">/ 2027</span></span>
           </Link>
 
           <div className="hidden md:flex items-center gap-1">
@@ -41,31 +42,31 @@ export const Navigation = () => {
                 {item.label}
               </Link>
             ))}
-            <button
+            <Button variant="ghost"
               onClick={toggle}
               className="ml-2 p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors min-h-11 min-w-11 flex items-center justify-center"
               aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
             >
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-            </button>
+            </Button>
           </div>
 
           <div className="flex items-center gap-1 md:hidden">
-            <button
+            <Button variant="ghost"
               onClick={toggle}
               className="p-2 text-muted-foreground hover:text-foreground min-h-11 min-w-11 flex items-center justify-center"
               aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
             >
               {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-            </button>
-            <button
+            </Button>
+            <Button variant="ghost"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-muted-foreground hover:text-foreground min-h-11 min-w-11 flex items-center justify-center"
               aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
               aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
+            </Button>
           </div>
         </div>
 
