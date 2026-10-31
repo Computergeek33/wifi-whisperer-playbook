@@ -46,7 +46,6 @@ export const ModulesOverview = ({ onModuleClick, currentModule }: ModulesOvervie
           {lessons.map((lesson) => (
             <ModuleCard
               key={lesson.id}
-              id={lesson.id}
               number={lesson.number}
               title={lesson.title}
               description={lesson.description}
