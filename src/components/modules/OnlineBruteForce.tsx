@@ -107,7 +107,7 @@ print_success "Brute force attempts complete. Check result files."`;
               <p>
                 <strong className="text-foreground">Online (This Module):</strong> Connect directly to the AP with 
                 each password attempt. Very slow (1-5 attempts/second) but works when handshake capture fails. 
-                Also the ONLY way to attack WPA-Enterprise and WPA3-SAE networks.
+                Applicability depends on authentication method and implementation; enterprise trust failures are a separate assessment path.
               </p>
               <p>
                 <strong className="text-foreground">When to Use Online:</strong> WPA-Enterprise (802.1X) networks, 
@@ -227,9 +227,9 @@ print_success "Brute force attempts complete. Check result files."`;
 [+] FOUND: MySecureP@ss2024`}
             />
             <CommandBlock
-              command="sudo python3 wacker.py --wordlist top1000.txt --ssid TargetWPA3 --bssid AA:BB:CC:DD:EE:FF --interface wlan1 --freq 2437 --timeout 5"
-              description="Wacker with timeout adjustment"
-              explanation="--timeout adjusts wait time per attempt. Use a smaller wordlist (top1000) since online attacks are slow. Focus on most common passwords."
+              command="python3 wacker.py --help"
+              description="Review installed Wacker options"
+              explanation="2027 correction: the inspected upstream parser has no --timeout option. Read installed help and pin the reviewed revision; no online attempt is performed here."
             />
           </div>
 

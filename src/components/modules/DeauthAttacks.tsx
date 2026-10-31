@@ -154,11 +154,8 @@ if [ -n "\$BSSID_FILE" ] && [ -f "\$BSSID_FILE" ]; then
     echo "[*] Starting targeted deauth attack..."
     mdk4 \$INTERFACE d -b \$BSSID_FILE
 else
-    echo "[*] No target file specified"
-    echo "[*] Starting broadcast deauth (all networks)..."
-    echo "[!] WARNING: This affects ALL nearby networks!"
-    echo "[!] Press Ctrl+C to stop"
-    mdk4 \$INTERFACE d
+    echo "Invalid target file: refusing all actions."
+    exit 64
 fi`;
 
   return (
