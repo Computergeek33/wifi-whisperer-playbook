@@ -6,6 +6,6 @@
 - [x] Audited technical corrections and disabled fail-closed script artifacts; no RF actions run.
 - [x] Single Bun text lock, advisory-driven dependency fixes, 20 passing tests, desktop/mobile learner flows, automated build OK.
 - [x] Security/dependency review completed: no production advisories reported; basic scan limited because no backend, no deep code scan.
-- [ ] Publish request and status report — pending final publishing tool result.
+- [x] Publishing scheduled for https://wifi-whisperer-playbook.lovable.app; deployment completion remains unverified. Status and limitations reported.
 
 Limits are documented in UPGRADE-NOTES.md: no hardware-tested runner, no live model/API, no exhaustive flag validation, no certification, Vite migration deferred for compatibility review. Optional news feed omitted.
