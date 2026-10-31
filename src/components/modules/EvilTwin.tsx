@@ -4,6 +4,10 @@ import { ScriptBlock } from "../ScriptBlock";
 
 export const EvilTwin = () => {
   const evilTwinScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Evil Twin Attack Script
 # Creates a rogue AP to capture credentials
 # Usage: sudo bash evil_twin.sh <target_ssid> <channel> <interface>
@@ -225,6 +229,10 @@ trap cleanup EXIT
 wait`;
 
   const hostapd_wpaScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # WPA2 Evil Twin Script
 # Creates a WPA2 rogue AP (for credential relay attacks)
 # Usage: sudo bash wpa_evil_twin.sh <ssid> <channel> <interface>

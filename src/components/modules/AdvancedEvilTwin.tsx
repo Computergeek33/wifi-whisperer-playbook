@@ -4,6 +4,10 @@ import { ScriptBlock } from "../ScriptBlock";
 
 export const AdvancedEvilTwin = () => {
   const wifipumpkinScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Wifipumpkin3 Automated Evil Twin Script
 # Usage: sudo bash run_wifipumpkin3.sh <ssid> <interface>
 

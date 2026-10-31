@@ -4,6 +4,10 @@ import { ScriptBlock } from "../ScriptBlock";
 
 export const WPSAttacks = () => {
   const wpsScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # WPS Vulnerability Assessment Script
 # Identifies and attacks WPS-enabled networks
 # Usage: sudo bash wps_attack.sh <interface> [bssid] [channel]
@@ -129,6 +133,10 @@ echo ""
 print_status "Results saved to \$OUTPUT_DIR/"`;
 
   const bullyScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Bully WPS Attack Script
 # Alternative to Reaver with different approach
 # Usage: sudo bash bully_attack.sh <bssid> <channel> <interface>
@@ -170,6 +178,10 @@ bully \$INTERFACE \\
     -T 0.5`;
 
   const pixiedustScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Pixie Dust Attack Script
 # Offline WPS attack (much faster than online brute force)
 # Usage: sudo bash pixiedust.sh <bssid> <channel> <interface>

@@ -4,6 +4,10 @@ import { ScriptBlock } from "../ScriptBlock";
 
 export const MITMAttacks = () => {
   const bettercapScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Bettercap MITM Attack Script
 # Automated ARP spoofing + credential sniffing
 # Usage: sudo bash bettercap_mitm.sh <interface> [target_ip]
@@ -70,6 +74,10 @@ echo ""
 sudo bettercap -iface \$INTERFACE -caplet "\$CAPLET"`;
 
   const dhcpStarvationScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # DHCP Starvation Attack Script
 # Exhausts DHCP pool to deny service
 # Usage: sudo bash dhcp_starvation.sh <interface>

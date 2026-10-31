@@ -4,6 +4,10 @@ import { ScriptBlock } from "../ScriptBlock";
 
 export const OnlineBruteForce = () => {
   const bruteForceScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # WiFi Online Brute Force Toolkit Script
 # Runs Air-Hammer, Wacker, and WifiBF against WPA targets
 # Usage: sudo bash wifi_bruteforce.sh <interface> <bssid> <channel> <wordlist>

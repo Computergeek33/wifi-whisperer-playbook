@@ -23,6 +23,10 @@ const PhaseHeader = ({ phase, title, description }: { phase: string; title: stri
 );
 
 const fullScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # ═══════════════════════════════════════════════════════════════
 # WiFi Penetration Test — Full Engagement Automation Script
 # For authorized security assessments only

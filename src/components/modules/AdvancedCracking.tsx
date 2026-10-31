@@ -4,6 +4,10 @@ import { ScriptBlock } from "../ScriptBlock";
 
 export const AdvancedCracking = () => {
   const crackingScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Advanced WiFi Password Cracking Toolkit
 # Runs Cowpatty, Pyrit, Aircrack-ng, and Pmkidcracker
 # Usage: sudo bash advanced_crack.sh <capture_file> [wordlist]

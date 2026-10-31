@@ -4,6 +4,10 @@ import { ScriptBlock } from "../ScriptBlock";
 
 export const AdvancedRecon = () => {
   const gpsdScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # GPSD Setup & Wardriving Script
 # Integrates GPS with wireless scanning tools
 # Usage: sudo bash gpsd_wardrive.sh <interface> [duration_minutes]
@@ -94,6 +98,10 @@ print_status "Files saved to \$OUTPUT_DIR/"
 print_status "Import CSV to WiGLE.net for visualization"`;
 
   const kismetScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Kismet Installation & Configuration Script
 # Professional wireless IDS/scanner with WebUI
 # Usage: sudo bash setup_kismet.sh <interface>
@@ -161,6 +169,10 @@ echo ""
 kismet`;
 
   const sparrowScript = `#!/bin/bash
+# 2027 edition: historical automation disabled; fails before any state change.
+printf 'Disabled review artifact. Use synthetic practice; no RF action permitted.\\n' >&2
+exit 64
+
 # Sparrow-WiFi Installation Script
 # GPS-enabled WiFi spectrum analyzer
 # Usage: sudo bash setup_sparrow.sh
